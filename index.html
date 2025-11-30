@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Senin için mor kasımpatı</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at top, #1a1028 0%, #070312 55%, #030109 100%);
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .wrapper {
+      position: relative;
+      width: min(780px, 94vw);
+      aspect-ratio: 16 / 9;
+      border-radius: 36px;
+      background: radial-gradient(circle at 0% 0%, #2c1f45 0%, #150f25 45%, #070512 100%);
+      box-shadow:
+        0 34px 90px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .caption {
+      position: absolute;
+      right: 26px;
+      bottom: 22px;
+      width: 270px;
+      line-height: 1.45;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: #f4e4ff;
+      opacity: 0.9;
+      text-align: right;
+      white-space: pre-line;
+      font-style: italic;
+      pointer-events: none;
+    }
+
+    /* Ortada beliren "onur ♥ şevval" yazısı */
+    .love-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -40%) scale(0.96);
+      font-size: 1.4rem;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: #fdf7ff;
+      opacity: 0;
+      pointer-events: none;
+      animation: loveFade 2.8s ease-out forwards;
+      /* Çizim animasyonu bittikten sonra gelsin */
+      animation-delay: 6.2s;
+    }
+
+    @keyframes loveFade {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.96);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    /* Işıltı noktaları */
+    .sparkle {
+      fill: #fefbff;
+      opacity: 0.0;
+      filter: drop-shadow(0 0 8px rgba(255, 245, 255, 0.8));
+      animation: twinkle 4s ease-in-out infinite;
+    }
+    .sparkle.s1 { animation-delay: 0.2s; }
+    .sparkle.s2 { animation-delay: 1.1s; }
+    .sparkle.s3 { animation-delay: 2.0s; }
+    .sparkle.s4 { animation-delay: 2.7s; }
+    .sparkle.s5 { animation-delay: 3.3s; }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4); }
+      40%      { opacity: 0.9; transform: scale(1); }
+      60%      { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* Çizgi animasyonları – SÜRESİ UZATILDI */
+    .petal,
+    .center-line,
+    .stem,
+    .leaf,
+    .leaf-vein,
+    .stem-highlight {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: draw 5.5s ease-out forwards;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes draw {
+      from { stroke-dashoffset: 260; opacity: 0; }
+      to   { stroke-dashoffset: 0;   opacity: 1; }
+    }
+
+    /* Renk paleti – mor kasımpatı */
+    .petal.outer      { stroke: #d294ff; stroke-width: 1.5; }
+    .petal.mid        { stroke: #c27dff; stroke-width: 1.35; }
+    .petal.soft       { stroke: #b373ff; stroke-width: 1.1;  opacity: 0.88; }
+    .petal.inner      { stroke: #e0c6ff; stroke-width: 1.05; }
+    .petal.highlight  { stroke: rgba(255, 245, 255, 0.9); stroke-width: 0.8; }
+
+    .center-line      { stroke: #f3ddff; stroke-width: 1.4; }
+
+    .stem             { stroke: #6fba79;  stroke-width: 3;   }
+    .stem-highlight   { stroke: #8bdc93;  stroke-width: 1.4; }
+    .leaf             { stroke: #5aa068;  stroke-width: 2.2; }
+    .leaf-vein        { stroke: #8bc77c;  stroke-width: 1.1; }
+
+    .center-dot {
+      fill: #ffd78d;
+      opacity: 0.9;
+      transform-origin: center;
+      animation: centerPulse 3.4s ease-in-out infinite;
+    }
+
+    @keyframes centerPulse {
+      0%   { transform: scale(1);   filter: drop-shadow(0 0 4px rgba(255,220,180,0.4)); }
+      50%  { transform: scale(1.18); filter: drop-shadow(0 0 14px rgba(255,220,180,0.95)); }
+      100% { transform: scale(1);   filter: drop-shadow(0 0 4px rgba(255,220,180,0.4)); }
+    }
+
+    .halo {
+      fill: url(#haloGrad);
+      opacity: 0.55;
+    }
+
+    .flower {
+      animation: sway 10s ease-in-out infinite alternate;
+      transform-origin: 50% 80%;
+      transform-box: fill-box;
+    }
+
+    @keyframes sway {
+      from { transform: translateY(0px) rotate(-1.7deg) scale(1); }
+      to   { transform: translateY(-5px) rotate(1.8deg) scale(1.02); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <svg viewBox="0 0 800 450">
+      <defs>
+        <radialGradient id="haloGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%"  stop-color="rgba(210, 180, 255, 0.6)" />
+          <stop offset="55%" stop-color="rgba(150, 110, 255, 0.28)" />
+          <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+        </radialGradient>
+
+        <!-- Petal baz formları (eski güzel sürümle aynı) -->
+        <path id="petalBaseOuter"
+              d="M0,0
+                 C 28,-34 58,-88 68,-138
+                 C 71,-152 68,-166 60,-178" />
+        <path id="petalBaseMid"
+              d="M0,0
+                 C 24,-32 50,-80 60,-126
+                 C 62,-136 60,-148 54,-158" />
+        <path id="petalBaseSoft"
+              d="M0,0
+                 C 20,-30 42,-74 50,-116
+                 C 52,-126 50,-136 46,-144" />
+        <path id="petalBaseInner"
+              d="M0,0
+                 C 16,-26 32,-60 38,-92
+                 C 40,-100 38,-108 34,-114" />
+      </defs>
+
+      <!-- Mor ışık hâlesi -->
+      <ellipse class="halo" cx="410" cy="230" rx="270" ry="176" />
+
+      <!-- Işıltı noktaları -->
+      <circle class="sparkle s1" cx="260" cy="140" r="3" />
+      <circle class="sparkle s2" cx="540" cy="120" r="3.5" />
+      <circle class="sparkle s3" cx="330" cy="70"  r="2.8" />
+      <circle class="sparkle s4" cx="490" cy="70"  r="2.6" />
+      <circle class="sparkle s5" cx="620" cy="210" r="3" />
+
+      <!-- Çiçek + gövde -->
+      <g class="flower">
+
+        <!-- Gövde -->
+        <path class="stem"
+              d="M410,250
+                 C 405,292 408,326 404,360
+                 C 402,380 397,400 392,414" />
+        <path class="stem-highlight"
+              d="M416,252
+                 C 413,292 414,322 410,355" />
+
+        <!-- Yapraklar -->
+        <path class="leaf"
+              d="M404,306
+                 C 360,298 334,294 302,310
+                 C 286,318 272,332 264,348
+                 C 284,340 299,342 318,350
+                 C 344,361 362,369 382,372" />
+        <path class="leaf-vein"
+              d="M382,371
+                 C 360,356 338,344 314,340" />
+
+        <path class="leaf"
+              d="M408,292
+                 C 452,284 480,280 510,288
+                 C 528,293 546,306 558,322
+                 C 538,314 520,316 502,324
+                 C 474,336 454,345 432,349" />
+        <path class="leaf-vein"
+              d="M432,348
+                 C 452,334 472,324 494,320" />
+
+        <!-- Çiçek merkezi çizgileri -->
+        <g>
+          <path class="center-line"
+                d="M410,236
+                   C 400,226 394,216 392,206" />
+          <path class="center-line"
+                d="M410,236
+                   C 414,224 416,214 417,203" />
+          <path class="center-line"
+                d="M410,236
+                   C 420,226 428,215 433,205" />
+          <path class="center-line"
+                d="M410,236
+                   C 404,228 400,220 398,210" />
+          <path class="center-line"
+                d="M410,236
+                   C 416,229 421,220 424,211" />
+        </g>
+
+        <!-- Çiçek ortası -->
+        <circle class="center-dot" cx="410" cy="238" r="9" />
+
+        <!-- DIŞ HALKA YAPRAKLAR -->
+        <g transform="translate(410,240) scale(1.04,0.86)">
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-80)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-72)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-64)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-56)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-48)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-40)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-32)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-24)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-16)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(-8)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(0)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(8)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(16)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(24)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(32)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(40)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(48)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(56)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(64)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(72)"/>
+          <use href="#petalBaseOuter" class="petal outer" transform="rotate(80)"/>
+
+          <!-- hafif parlak ek yapraklar -->
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(-70) scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(-50) scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(-30) scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(-10) scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(10)  scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(30)  scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(50)  scale(0.98,1)"/>
+          <use href="#petalBaseOuter" class="petal highlight" transform="rotate(70)  scale(0.98,1)"/>
+        </g>
+
+        <!-- ORTA HALKA -->
+        <g transform="translate(410,238) scale(0.96,0.80)">
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-78)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-70)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-62)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-54)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-46)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-38)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-30)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-22)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-14)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(-6)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(2)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(10)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(18)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(26)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(34)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(42)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(50)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(58)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(66)"/>
+          <use href="#petalBaseMid" class="petal mid" transform="rotate(74)"/>
+        </g>
+
+        <!-- YUMUŞAK ORTA KATMAN -->
+        <g transform="translate(410,238) scale(0.9,0.75)">
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-74)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-66)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-58)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-50)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-42)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-34)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-26)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-18)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-10)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(-2)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(6)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(14)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(22)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(30)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(38)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(46)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(54)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(62)"/>
+          <use href="#petalBaseSoft" class="petal soft" transform="rotate(70)"/>
+        </g>
+
+        <!-- İÇ HALKA -->
+        <g transform="translate(410,236) scale(0.78,0.68)">
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-66)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-58)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-50)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-42)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-34)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-26)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-18)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-10)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(-2)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(6)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(14)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(22)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(30)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(38)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(46)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(54)"/>
+          <use href="#petalBaseInner" class="petal inner" transform="rotate(62)"/>
+        </g>
+      </g>
+    </svg>
+
+    <div class="caption">
+senin için solmayan kasımpatı yaptım,
+her baktığında beni hatırla.
+sevgilin onur "şevvale baya aşık" bulut.
+    </div>
+
+    <div class="love-text">
+      onur ♥ şevval
+    </div>
+  </div>
+</body>
+</html>
